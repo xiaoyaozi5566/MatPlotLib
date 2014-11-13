@@ -5,12 +5,12 @@ import pylab
 benchmarks = ['astar', 'bzip2', 'gcc', 'gobmk', 'h264ref', 'hmmer', 'libquantum', 'mcf', 'sjeng', 'xalan']
 cpus = ['detailed', 'timing']
 cacheSizes = ['0kB', '512kB', '1024kB', '2048kB']
-folder = "/Users/yaowang/Desktop/results/"
+folder = "/Users/yaowang/Desktop/results/cache_misses_2B_stderr/"
 
 for bench in benchmarks:
     for cpu in cpus:
         for cacheSize in cacheSizes:
-            input_file = folder + 'stdout_none_' + cpu + '_' + bench + '_c' + cacheSize + '.trc'
+            input_file = folder + 'run_none_' + cpu + '_' + bench + '_c' + cacheSize + '.trc'
             data = pylab.loadtxt(input_file)
             pylab.plot( data[:, 0], data[:, 1], label=cacheSize)
         pylab.legend()
