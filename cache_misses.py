@@ -1,16 +1,27 @@
+#!/usr/bin/python
+
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import pylab
 
-benchmarks = ['astar', 'bzip2', 'gcc', 'gobmk', 'h264ref', 'hmmer', 'libquantum', 'mcf', 'sjeng', 'xalan']
+specint = ['astar', 'bzip2', 'gcc', 'gobmk', 'h264ref', 'hmmer', 'libquantum', 'mcf', 'sjeng', 'xalan']
+openssl = ['Blowfish', 'CAST5', 'RC4', 'SHA-0', 'SHA-1', 'SHA-256-224', 'SHA-512-384', 'Whirlpool']
 cpus = ['detailed', 'timing']
 cacheSizes = ['0kB', '512kB', '1024kB', '2048kB']
-folder = "/Users/yaowang/Desktop/results/cache_misses_2B_stderr/"
+
+select_bench = sys.argv[1]
+folder = sys.argv[2]
+
+if select_bench == 'specint':
+    benchmarks = specint
+else:
+    benchmarks = openssl
 
 for bench in benchmarks:
     for cpu in cpus:
         for cacheSize in cacheSizes:
-            input_file = folder + 'run_none_' + cpu + '_' + bench + '_c' + cacheSize + '.trc'
+            input_file = folder + 'run_none_' + cpu + '_' + bench + '_c' + cacheSize + '_total_misses.trc'
             data = pylab.loadtxt(input_file)
             pylab.plot( data[:, 0], data[:, 1], label=cacheSize)
         pylab.legend()
