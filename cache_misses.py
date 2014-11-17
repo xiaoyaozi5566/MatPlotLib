@@ -27,7 +27,10 @@ for bench in benchmarks:
         for cacheSize in cacheSizes:
             input_file = folder + 'run_none_' + cpu + '_' + bench + '_c' + cacheSize + '.trc'
             data = pylab.loadtxt(input_file)
-            pylab.plot( data[:, 0], movingaverage(data[:, 1], 10), label=cacheSize)
+            if cpu == 'timing':
+                pylab.plot( data[:, 0], movingaverage(data[:, 1], 50), label=cacheSize)
+            else:
+                pylab.plot( data[:, 0], movingaverage(data[:, 1], 20), label=cacheSize)
         pylab.legend()
         pylab.title(bench, fontsize=25)
         pylab.xlabel("time (million cycles)", fontsize=20)
